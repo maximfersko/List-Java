@@ -25,6 +25,47 @@ public class MyLinkedList<T> implements MyList<T>{
         }
     }
 
+    private Node<T> getNodeAtIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index out of range!");
+        }
+
+        Node<T> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+
+        return current;
+    }
+
+    private void delete(Node<T> node) {
+        if (head == node) {
+            head = head.next;
+            if (head != null) {
+                head.prev = null;
+            } else {
+                tail = null;
+            }
+        } else if (tail == node) {
+            tail = tail.prev;
+            tail.next = null;
+        } else {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+        }
+        --size;
+    }
+
+    private Optional<Node<T>> findNode(T elm) {
+        Node<T> iter = head;
+        for (; iter != null; iter = iter.next) {
+            if (iter.data.equals(elm)) {
+                return Optional.of(iter);
+            }
+        }
+        return Optional.empty();
+    }
+
     @Override
     public void add(int idx, T elm) {
         if (idx >= size || idx < 0) {
@@ -86,18 +127,7 @@ public class MyLinkedList<T> implements MyList<T>{
         }
     }
 
-    private Node<T> getNodeAtIndex(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index out of range!");
-        }
 
-        Node<T> current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
-
-        return current;
-    }
 
     @Override
     public T remove(int idx) {
@@ -118,35 +148,6 @@ public class MyLinkedList<T> implements MyList<T>{
         }
         return false;
     }
-
-    private void delete(Node<T> node) {
-        if (head == node) {
-            head = head.next;
-            if (head != null) {
-                head.prev = null;
-            } else {
-                tail = null;
-            }
-        } else if (tail == node) {
-            tail = tail.prev;
-            tail.next = null;
-        } else {
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
-        }
-        --size;
-    }
-
-    private Optional<Node<T>> findNode(T elm) {
-        Node<T> iter = head;
-        for (; iter != null; iter = iter.next) {
-            if (iter.data.equals(elm)) {
-                return Optional.of(iter);
-            }
-        }
-        return Optional.empty();
-    }
-
 
     @Override
     public void sort(Comparator<T> comparator) {

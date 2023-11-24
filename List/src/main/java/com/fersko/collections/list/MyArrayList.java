@@ -11,6 +11,21 @@ public class MyArrayList<T> implements MyList<T> {
 
     private int capacity = 10;
 
+    private OptionalInt findElm(T elm) {
+        return IntStream.range(0, size)
+                .filter(i -> elm.equals(data[i]))
+                .findFirst();
+    }
+
+    @SuppressWarnings("unchecked")
+    private void resize() {
+        capacity *= 2;
+        T[] newData = (T[]) new Object[capacity];
+        System.arraycopy(data, 0, newData, 0, data.length);
+        data = newData;
+    }
+
+
     @SuppressWarnings("unchecked")
     public MyArrayList() {
         data = (T[]) new Object[capacity];
@@ -23,13 +38,13 @@ public class MyArrayList<T> implements MyList<T> {
         data = new Object[sizeCapacity];
     }
 
-    @SuppressWarnings("unchecked")
-    private void resize() {
-        capacity *= 2;
-        T[] newData = (T[]) new Object[capacity];
-        System.arraycopy(data, 0, newData, 0, data.length);
-        data = newData;
+    private void delElm(int idxToRemove) {
+        IntStream.range(idxToRemove, size - 1)
+                .forEach(i -> data[i] = data[i + 1]);
+        data[size - 1] = null;
+        size--;
     }
+
 
     @Override
     public void add(int idx, T elm) {
@@ -108,13 +123,6 @@ public class MyArrayList<T> implements MyList<T> {
         return false;
     }
 
-    private void delElm(int idxToRemove) {
-        IntStream.range(idxToRemove, size - 1)
-                .forEach(i -> data[i] = data[i + 1]);
-        data[size - 1] = null;
-        size--;
-    }
-
     @Override
     @SuppressWarnings("unchecked")
     public void sort(Comparator<T> comparator) {
@@ -134,12 +142,6 @@ public class MyArrayList<T> implements MyList<T> {
     @Override
     public int size() {
         return size;
-    }
-
-    private OptionalInt findElm(T elm) {
-        return IntStream.range(0, size)
-                .filter(i -> elm.equals(data[i]))
-                .findFirst();
     }
 
     @Override
