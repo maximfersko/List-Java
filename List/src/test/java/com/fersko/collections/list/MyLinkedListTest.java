@@ -64,7 +64,6 @@ public class MyLinkedListTest {
         List<Integer> list = new ArrayList<>();
         MyList<Integer> myList = new MyLinkedList<>();
         fillList(list, myList);
-        System.out.println(myList);
         assertEquals(list.contains(666), myList.contains(666));
         assertEquals(list.contains(9), myList.contains(9));
     }
@@ -79,6 +78,23 @@ public class MyLinkedListTest {
         }
         list.sort(Comparator.naturalOrder());
         myList.sort(Comparator.naturalOrder());
+        assertTrue(isEqualsList(list, myList));
+    }
+
+    @Test
+    public void addElmAtIndex() {
+        List<Integer> list = new ArrayList<>();
+        MyList<Integer> myList = new MyLinkedList<>();
+        fillList(list, myList);
+        list.add(0, 1000);
+        myList.add(0, 1000);
+        assertTrue(isEqualsList(list, myList));
+        list.add(5, 77);
+        myList.add(5, 77);
+        assertTrue(isEqualsList(list, myList));
+        list.add(9,655);
+        myList.add(9, 655);
+        assertTrue(isEqualsList(list, myList));
     }
 
 }
