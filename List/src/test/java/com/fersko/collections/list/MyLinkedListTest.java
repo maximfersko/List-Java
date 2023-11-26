@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MyLinkedListTest {
 
     @Test
-    public void addLinkedList() {
+    void addLinkedList() {
         List<Integer> list = new LinkedList<>();
         MyList<Integer> myList = new MyLinkedList<>();
         list.add(99);
@@ -24,7 +24,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void getLinkedList() {
+     void getLinkedList() {
         List<Integer> list = new LinkedList<>();
         MyList<Integer> myList = new MyLinkedList<>();
         fillList(list, myList);
@@ -32,7 +32,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void  removeElmAtIdxLinkedList() {
+    void  removeElmAtIdxLinkedList() {
         List<Integer> list = new LinkedList<>();
         MyList<Integer> myList = new MyLinkedList<>();
         fillList(list, myList);
@@ -45,7 +45,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void removeElmElmLinkedList() {
+    void removeElmElmLinkedList() {
         List<String> list = new LinkedList<>();
         MyList<String> myList = new MyLinkedList<>();
         for (int i = 0; i < 10; i++) {
@@ -60,7 +60,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void containsElmLinkedList() {
+    void containsElmLinkedList() {
         List<Integer> list = new ArrayList<>();
         MyList<Integer> myList = new MyLinkedList<>();
         fillList(list, myList);
@@ -69,7 +69,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void sortLinkedList() {
+     void sortLinkedList() {
         List<Integer> list = new ArrayList<>();
         MyList<Integer> myList = new MyLinkedList<>();
         for (int i = 12; i >= 0; --i) {
@@ -82,7 +82,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void addElmAtIndex() {
+     void addElmAtIndex() {
         List<Integer> list = new ArrayList<>();
         MyList<Integer> myList = new MyLinkedList<>();
         fillList(list, myList);

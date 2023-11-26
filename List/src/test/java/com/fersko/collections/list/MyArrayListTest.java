@@ -14,14 +14,14 @@ import static com.fersko.collections.list.UtilsListForTest.fillList;
 public class MyArrayListTest {
 
     @Test
-    public void defConstructorTest() {
+    void defConstructorTest() {
         List<Byte> byteList = new ArrayList<>();
         MyList<Byte> byteMyList = new MyArrayList<>();
         assertEquals(byteList.size(), byteMyList.size());
     }
 
     @Test
-    public void resizeArrayListTest() {
+    void resizeArrayListTest() {
         List<Integer> list = new ArrayList<>(5);
         MyList<Integer> myList = new MyArrayList<>(5);
         fillList(list, myList);
@@ -29,7 +29,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void addArrayList() {
+    void addArrayList() {
         List<String> names = new ArrayList<>(15);
         MyList<String> namesMyList = new MyArrayList<>(15);
         names.add("Max");
@@ -39,7 +39,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void cleanArrayTest() {
+    void cleanArrayTest() {
         List<Integer> list = new ArrayList<>();
         MyList<Integer> myList = new MyArrayList<>();
         fillList(list, myList);
@@ -49,7 +49,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void removeElmByIdxArrayList() {
+    void removeElmByIdxArrayList() {
         List<Integer> list = new ArrayList<>();
         MyList<Integer> myList = new MyArrayList<>();
         fillList(list, myList);
@@ -59,7 +59,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void removeElmArrayList() {
+    void removeElmArrayList() {
         List<String> list = new ArrayList<>();
         MyList<String> myList = new MyArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -74,7 +74,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void containsArrayList() {
+    void containsArrayList() {
         List<Integer> list = new ArrayList<>();
         MyList<Integer> myList = new MyArrayList<>();
         fillList(list, myList);
@@ -83,7 +83,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void sortArrayList() {
+    void sortArrayList() {
         List<Integer> list = new ArrayList<>();
         MyList<Integer> myList = new MyArrayList<>();
         for (int i = 12; i >= 0; --i) {
