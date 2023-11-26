@@ -11,18 +11,21 @@ import java.util.stream.IntStream;
  */
 public class MyArrayList<T> implements MyList<T> {
 
+    private final static int DEFAULT_CAPACITY = 10;
+
+    private final static String OUT_OF_RANGE_ERROR = "Index out of range!";
+
     private Object[] data;
 
     private int size;
 
-    private int capacity = 10;
+    private int capacity = DEFAULT_CAPACITY;
 
     /**
      * Constructs an empty MyArrayList with an initial capacity of 10.
      */
-    @SuppressWarnings("unchecked")
     public MyArrayList() {
-        data = (T[]) new Object[capacity];
+        data = new Object[capacity];
     }
 
     /**
@@ -56,8 +59,7 @@ public class MyArrayList<T> implements MyList<T> {
      */
     @SuppressWarnings("unchecked")
     private void resize() {
-        capacity *= 2;
-        T[] newData = (T[]) new Object[capacity];
+        T[] newData = (T[]) new Object[capacity *= 2];
         System.arraycopy(data, 0, newData, 0, data.length);
         data = newData;
     }
@@ -84,13 +86,13 @@ public class MyArrayList<T> implements MyList<T> {
     @Override
     public void add(int idx, T elm) {
         if (idx < 0 || idx > size) {
-            throw new IndexOutOfBoundsException("Index out of range!");
+            throw new IndexOutOfBoundsException(OUT_OF_RANGE_ERROR);
         }
         if (size == data.length) {
             resize();
         }
-        for (int i = size; i > idx; i--) {
-            data[i] = data[i - 1];
+        if (size - idx >= 0) {
+            System.arraycopy(data, idx, data, idx + 1, size - idx);
         }
         data[idx] = elm;
         size++;
@@ -120,7 +122,7 @@ public class MyArrayList<T> implements MyList<T> {
     @SuppressWarnings("unchecked")
     public T get(int idx) {
         if (idx < 0 || idx >= size) {
-            throw new IndexOutOfBoundsException("Index out of range");
+            throw new IndexOutOfBoundsException(OUT_OF_RANGE_ERROR);
         }
         return (T) data[idx];
     }
@@ -129,9 +131,8 @@ public class MyArrayList<T> implements MyList<T> {
      * Removes all elements from the list, leaving it empty.
      */
     @Override
-    @SuppressWarnings("unchecked")
     public void clean() {
-        data = (T[]) new Object[capacity];
+        data = new Object[capacity];
         size = 0;
     }
 
@@ -146,7 +147,7 @@ public class MyArrayList<T> implements MyList<T> {
     @SuppressWarnings("unchecked")
     public T remove(int idx) {
         if (idx < 0 || idx >= size) {
-            throw new IndexOutOfBoundsException("Index out of range!");
+            throw new IndexOutOfBoundsException(OUT_OF_RANGE_ERROR);
         }
 
         T removedElement = (T) data[idx];

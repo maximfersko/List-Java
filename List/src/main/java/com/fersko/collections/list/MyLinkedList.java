@@ -12,6 +12,8 @@ import java.util.Optional;
  */
 public class MyLinkedList<T> implements MyList<T> {
 
+    private final static String OUT_OF_RANGE_ERROR = "Index out of range!";
+
     private Node<T> head;
     private Node<T> tail;
     private int size;
@@ -47,7 +49,7 @@ public class MyLinkedList<T> implements MyList<T> {
      */
     private Node<T> getNodeAtIndex(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index out of range!");
+            throw new IndexOutOfBoundsException(OUT_OF_RANGE_ERROR);
         }
 
         Node<T> current = head;
@@ -88,8 +90,7 @@ public class MyLinkedList<T> implements MyList<T> {
      * @return an Optional containing the node with the specified element, or an empty Optional if not found.
      */
     private Optional<Node<T>> findNode(T elm) {
-        Node<T> iter = head;
-        for (; iter != null; iter = iter.next) {
+        for (Node<T> iter = head; iter != null; iter = iter.next) {
             if (iter.data.equals(elm)) {
                 return Optional.of(iter);
             }
@@ -107,7 +108,7 @@ public class MyLinkedList<T> implements MyList<T> {
     @Override
     public void add(int idx, T elm) {
         if (idx > size || idx < 0) {
-            throw new IndexOutOfBoundsException("Index out of range!");
+            throw new IndexOutOfBoundsException(OUT_OF_RANGE_ERROR);
         }
 
         if (idx == size) {
@@ -202,7 +203,7 @@ public class MyLinkedList<T> implements MyList<T> {
     @Override
     public T get(int idx) {
         if (idx >= size) {
-            throw new IndexOutOfBoundsException("Index out of range");
+            throw new IndexOutOfBoundsException(OUT_OF_RANGE_ERROR);
         }
         return getNodeAtIndex(idx).data;
     }
@@ -230,7 +231,7 @@ public class MyLinkedList<T> implements MyList<T> {
     @Override
     public T remove(int idx) {
         if (idx < 0 || idx >= size) {
-            throw new IndexOutOfBoundsException("Index out of range!");
+            throw new IndexOutOfBoundsException(OUT_OF_RANGE_ERROR);
         }
         Node<T> current = getNodeAtIndex(idx);
         delete(current);
