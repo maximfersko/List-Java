@@ -1,32 +1,32 @@
 # List-Java
 
-# Как запустить тесты:
+# How to Run Tests:
 
 ```shell
     cd List
     mvn test
 ```
-# Интерфейс MyList<T>
+# MyList<T> Interface
 
-Определяет методы, которые должны быть реализованы классами, представляющими структуры данных списков.
+Defines methods that should be implemented by classes representing list data structures.
 
 ## Методы
 
-- `add(int idx, T elm)`: Вставляет элемент по указанному индексу.
-- `add(T elm)`: Добавляет элемент в конец списка.
-- `get(int idx)`: Возвращает элемент по указанному индексу.
-- `clean()`: Удаляет все элементы из списка, делая его пустым.
-- `remove(int idx)`: Удаляет элемент по указанному индексу.
-- `remove(T elm)`: Удаляет первое вхождение указанного элемента из списка.
-- `sort(Comparator<T> comparator)`: Сортирует элементы списка с использованием заданного компаратора.
-- `size()`: Возвращает текущий размер списка.
-- `contains(T elm)`: Проверяет, содержится ли указанный элемент в списке.
-- `toArray()`: Возвращает массив, содержащий все элементы списка.
+- `add(int idx, T elm)`: Inserts an element at the specified index.
+- `add(T elm)`: Appends an element to the end of the list.
+- `get(int idx)`: Returns the element at the specified index.
+- `clean()`:  Removes all elements from the list, making it empty.
+- `remove(int idx)`: Removes the element at the specified index.
+- `remove(T elm)`: Removes the first occurrence of the specified element from the list.
+- `sort(Comparator<T> comparator)`: Sorts the elements of the list using the specified comparator.
+- `size()`: Returns the current size of the list.
+- `contains(T elm)`:  Checks if the specified element is present in the list.
+- `toArray()`:  Returns an array containing all elements of the list.
 
 # Класс MyArrayList<T>
 
-Реализует интерфейс `MyList<T>` с использованием массива для хранения элементов.
+Implements the MyList<T> interface using an array to store elements.
 
 # Класс MyLinkedList<T>
 
-Реализует интерфейс `MyList<T>` с использованием двусвязного списка.
+Implements the MyList<T> interface using a doubly-linked list.
