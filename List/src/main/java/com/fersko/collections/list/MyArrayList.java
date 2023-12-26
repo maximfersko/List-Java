@@ -1,6 +1,11 @@
 package com.fersko.collections.list;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 /**
@@ -20,6 +25,21 @@ public class MyArrayList<T> implements MyList<T> {
     private int size;
 
     private int capacity = DEFAULT_CAPACITY;
+
+
+    /**
+     * Searches for the first occurrence of the specified element in the list.
+     *
+     * @param elm the element to search for.
+     * @return an OptionalInt containing the index of the first occurrence of the specified element,
+     * or an empty OptionalInt if the element is not found.
+     */
+    private OptionalInt findElm(T elm) {
+        return IntStream.range(0, size)
+                .filter(i -> elm.equals(data[i]))
+                .findFirst();
+    }
+
 
     /**
      * Constructs an empty MyArrayList with an initial capacity of 10.
@@ -42,16 +62,19 @@ public class MyArrayList<T> implements MyList<T> {
     }
 
     /**
-     * Searches for the first occurrence of the specified element in the list.
+     * Compares this MyArrayList with the specified object for equality.
      *
-     * @param elm the element to search for.
-     * @return an OptionalInt containing the index of the first occurrence of the specified element,
-     *         or an empty OptionalInt if the element is not found.
+     * @param o the object to be compared for equality with this MyArrayList.
+     * @return true if the specified object is equal to this MyArrayList.
      */
-    private OptionalInt findElm(T elm) {
-        return IntStream.range(0, size)
-                .filter(i -> elm.equals(data[i]))
-                .findFirst();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!( o instanceof MyArrayList ))
+            return false;
+        MyArrayList<?> that = (MyArrayList<?>) o;
+        return size == that.size && capacity == that.capacity && Arrays.equals(data, that.data);
     }
 
     /**
@@ -156,17 +179,13 @@ public class MyArrayList<T> implements MyList<T> {
     }
 
     /**
-     * Compares this MyArrayList with the specified object for equality.
+     * Returns a string representation of the MyArrayList.
      *
-     * @param o the object to be compared for equality with this MyArrayList.
-     * @return true if the specified object is equal to this MyArrayList.
+     * @return a string representation of the MyArrayList.
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MyArrayList)) return false;
-        MyArrayList<?> that = (MyArrayList<?>) o;
-        return size == that.size && capacity == that.capacity && Arrays.equals(data, that.data);
+    public String toString() {
+        return Arrays.toString(data);
     }
 
     /**
@@ -251,12 +270,38 @@ public class MyArrayList<T> implements MyList<T> {
     }
 
     /**
-     * Returns a string representation of the MyArrayList.
-     *
-     * @return a string representation of the MyArrayList.
+     * @return an iterator over the elements in this MyArrayList in proper sequence.
      */
     @Override
-    public String toString() {
-        return Arrays.toString(data);
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private int currentIdx;  // Index of the current element in the iteration.
+
+            /**
+             * Returns true if there is a next element in the iteration.
+             *
+             * @return true if there is a next element, false otherwise.
+             */
+            @Override
+            public boolean hasNext() {
+                return currentIdx < size;
+            }
+
+            /**
+             * Returns the next element in the iteration and advances the iterator.
+             *
+             * @return the next element in the iteration.
+             * @throws NoSuchElementException if there is no next element.
+             */
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException("No more elements in the iteration.");
+                }
+                return get(currentIdx++);
+            }
+        };
     }
+
 }
+
