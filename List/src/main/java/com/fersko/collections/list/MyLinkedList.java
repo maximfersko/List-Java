@@ -2,6 +2,8 @@ package com.fersko.collections.list;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -17,28 +19,6 @@ public class MyLinkedList<T> implements MyList<T> {
     private Node<T> head;
     private Node<T> tail;
     private int size;
-
-    /**
-     * Node class representing elements in the linked list.
-     *
-     * @param <T> the type of elements stored in the node.
-     */
-    private static class Node<T> {
-        private T data;
-        private Node<T> next;
-        private Node<T> prev;
-
-        /**
-         * Constructs a node with the specified element.
-         *
-         * @param elm the element to be stored in the node.
-         */
-        public Node(T elm) {
-            data = elm;
-            next = null;
-            prev = null;
-        }
-    }
 
     /**
      * Returns the node at the specified index in the linked list.
@@ -148,8 +128,10 @@ public class MyLinkedList<T> implements MyList<T> {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MyLinkedList)) return false;
+	    if (this == o)
+		    return true;
+	    if (!( o instanceof MyLinkedList ))
+		    return false;
         MyLinkedList<?> that = (MyLinkedList<?>) o;
         return size == that.size && Objects.equals(head, that.head) && Objects.equals(tail, that.tail);
     }
@@ -310,4 +292,63 @@ public class MyLinkedList<T> implements MyList<T> {
         }
         return array;
     }
+
+
+	/**
+	 * @return an iterator over the elements in this MyArrayList in proper sequence.
+	 */
+	@Override
+	public Iterator<T> iterator() {
+		return new Iterator<>() {
+			private Node<T> current = head;
+
+			/**
+			 * Checks if there is a next element in the iteration.
+			 *
+			 * @return true if there is a next element, false otherwise.
+			 */
+			@Override
+			public boolean hasNext() {
+				return current != null;
+			}
+
+			/**
+			 * Returns the next element in the iteration and advances the iterator.
+			 *
+			 * @return the next element in the iteration.
+			 * @throws NoSuchElementException if there is no next element.
+			 */
+			@Override
+			public T next() {
+				if (!hasNext()) {
+					throw new NoSuchElementException("No more elements in the iteration.");
+				}
+				T data = current.data;
+				current = current.next;
+				return data;
+			}
+		};
+	}
+
+	/**
+	 * Node class representing elements in the linked list.
+	 *
+	 * @param <T> the type of elements stored in the node.
+	 */
+	private static class Node<T> {
+		private T data;
+		private Node<T> next;
+		private Node<T> prev;
+
+		/**
+		 * Constructs a node with the specified element.
+		 *
+		 * @param elm the element to be stored in the node.
+		 */
+		public Node(T elm) {
+			data = elm;
+			next = null;
+			prev = null;
+		}
+	}
 }
