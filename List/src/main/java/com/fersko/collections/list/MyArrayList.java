@@ -16,9 +16,9 @@ import java.util.stream.IntStream;
  */
 public class MyArrayList<T> implements MyList<T> {
 
-    private final static int DEFAULT_CAPACITY = 10;
+    private static final int DEFAULT_CAPACITY = 10;
 
-    private final static String OUT_OF_RANGE_ERROR = "Index out of range!";
+    private static final String OUT_OF_RANGE_ERROR = "Index out of range!";
 
     private Object[] data;
 
@@ -74,7 +74,9 @@ public class MyArrayList<T> implements MyList<T> {
         if (!( o instanceof MyArrayList ))
             return false;
         MyArrayList<?> that = (MyArrayList<?>) o;
-        return size == that.size && capacity == that.capacity && Arrays.equals(data, that.data);
+        return size == that.size
+                && capacity == that.capacity
+                && Arrays.equals(data, that.data);
     }
 
     /**
@@ -274,7 +276,7 @@ public class MyArrayList<T> implements MyList<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             private int currentIdx;  // Index of the current element in the iteration.
 
             /**
@@ -297,9 +299,9 @@ public class MyArrayList<T> implements MyList<T> {
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException("No more elements in the iteration.");
-                }
-                return get(currentIdx++);
-            }
+		        }
+		        return get(currentIdx++);
+	        }
         };
     }
 

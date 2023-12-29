@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 public class MyLinkedList<T> implements MyList<T> {
 
-    private final static String OUT_OF_RANGE_ERROR = "Index out of range!";
+	private static final String OUT_OF_RANGE_ERROR = "Index out of range!";
 
     private Node<T> head;
     private Node<T> tail;
@@ -133,7 +133,9 @@ public class MyLinkedList<T> implements MyList<T> {
 	    if (!( o instanceof MyLinkedList ))
 		    return false;
         MyLinkedList<?> that = (MyLinkedList<?>) o;
-        return size == that.size && Objects.equals(head, that.head) && Objects.equals(tail, that.tail);
+	    return size == that.size
+			    && Objects.equals(head, that.head)
+			    && Objects.equals(tail, that.tail);
     }
 
     /**
@@ -166,13 +168,12 @@ public class MyLinkedList<T> implements MyList<T> {
         Node<T> newNode = new Node<>(elm);
         if (head == null) {
             head = newNode;
-            tail = newNode;
         } else {
             tail.next = newNode;
             newNode.prev = tail;
-            tail = newNode;
         }
-        size++;
+	    tail = newNode;
+	    size++;
     }
 
     /**
